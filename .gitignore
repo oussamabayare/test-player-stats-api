@@ -1,0 +1,6 @@
+.pnp.cjs
+.pnp.loader.mjs
+
+dist/*
+node_modules/*
+.yarn/*

@@ -1,0 +1,40 @@
+{
+  "name": "test-player-stats-api",
+  "version": "1.0.0",
+  "description": "Simple API player stats",
+  "scripts": {
+    "build": "yarn babel src -d dist",
+    "build:clean": "rimraf dist/*",
+    "build:watch": "yarn build -w",
+    "lint": "eslint './{,{src,tests}/**/}*.js' --fix --quiet",
+    "prestart": "yarn build",
+    "start": "node dist/main.js",
+    "start:dev": "NODE_ENV=development nodemon src/main.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "axios": "^1.6.4",
+    "fastify": "^4.25.2",
+    "fastify-cli": "^6.0.0",
+    "fastify-plugin": "^4.5.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.23.4",
+    "@babel/core": "7.23.7",
+    "@babel/eslint-parser": "7.23.3",
+    "@babel/node": "7.22.19",
+    "@babel/preset-env": "7.23.7",
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.1.2",
+    "jest": "^29.7.0",
+    "nodemon": "3.0.2",
+    "prettier": "3.1.1",
+    "rimraf": "5.0.5",
+    "supertest": "6.3.3"
+  },
+  "repository": "https://github.com/oussamabayare/test-player-stats-api",
+  "author": "BAYARE Oussama <bayareoussama@gmail.com>",
+  "license": "MIT"
+}
