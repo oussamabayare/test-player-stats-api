@@ -11,11 +11,7 @@ describe('isNumber function', () => {
 });
 
 describe('sortArrayByIntegerKey function', () => {
-  const array = [
-    { id: 3 },
-    { id: 1 },
-    { id: 2 },
-  ];
+  const array = [{ id: 3 }, { id: 1 }, { id: 2 }];
 
   it('should sort array in ascending order by default', () => {
     const result = sortArrayByIntegerKey(array, 'id');
