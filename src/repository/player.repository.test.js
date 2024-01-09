@@ -50,20 +50,37 @@ describe('PlayerRepository', () => {
   const endpoint = 'https://fake-url.com/players';
   const playerRepository = new AxiosPlayerRepository(endpoint);
 
-  axios.get.mockResolvedValue({ data: { players: mockPlayers } });
-
   it('should fetch all players successfully', async () => {
+    axios.get.mockResolvedValueOnce({ data: { players: mockPlayers } });
     const result = await playerRepository.getAllPlayers();
     expect(result).toEqual(mockPlayers);
     expect(axios.get).toHaveBeenCalledWith(endpoint);
   });
 
+  it('should return an empty array', async () => {
+    axios.get.mockResolvedValueOnce({});
+
+    const result = await playerRepository.getAllPlayers();
+    expect(result).toEqual([]);
+    expect(axios.get).toHaveBeenCalledWith(endpoint);
+  });
+
   it('should fetch a player by id successfully', async () => {
+    axios.get.mockResolvedValueOnce({ data: { players: mockPlayers } });
     const playerId = 52;
     const mockPlayer = mockPlayers.find((player) => player.id === playerId);
 
     const result = await playerRepository.getPlayerById(playerId);
     expect(result).toEqual(mockPlayer);
+    expect(axios.get).toHaveBeenCalledWith(endpoint);
+  });
+
+  it('should throw a not found error', async () => {
+    axios.get.mockResolvedValueOnce({ data: { players: mockPlayers } });
+    const playerId = 1;
+
+    const result = playerRepository.getPlayerById(playerId);
+    await expect(result).rejects.toThrow(Error('Not found'));
     expect(axios.get).toHaveBeenCalledWith(endpoint);
   });
 });

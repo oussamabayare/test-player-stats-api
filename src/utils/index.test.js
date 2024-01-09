@@ -11,15 +11,15 @@ describe('isNumber function', () => {
 });
 
 describe('sortArrayByIntegerKey function', () => {
-  const array = [{ id: 3 }, { id: 1 }, { id: 2 }];
+  const array = [{ id: 3 }, { id: 1 }, { id: 2 }, { id: 3 }];
 
   it('should sort array in ascending order by default', () => {
     const result = sortArrayByIntegerKey(array, 'id');
-    expect(result).toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
+    expect(result).toEqual([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 3 }]);
   });
 
   it('should sort array in descending order if asc is false', () => {
     const result = sortArrayByIntegerKey(array, 'id', false);
-    expect(result).toEqual([{ id: 3 }, { id: 2 }, { id: 1 }]);
+    expect(result).toEqual([{ id: 3 }, { id: 3 }, { id: 2 }, { id: 1 }]);
   });
 });
