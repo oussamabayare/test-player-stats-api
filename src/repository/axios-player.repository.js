@@ -1,34 +1,30 @@
 const axios = require('axios');
-const PlayerRepository = require('./player.repository.js');
 const Player = require('../model/player.entity.js');
 
-class AxiosPlayerRepository extends PlayerRepository {
+class AxiosPlayerRepository {
   constructor(endpoint) {
-    super();
     this.playersEndpoint = endpoint;
   }
 
   async getAllPlayers() {
-    try {
-      const response = await axios.get(this.playersEndpoint);
-      return response.data.players.map(
-        (playerData) => new Player(playerData)
-      );
-    } catch (error) {
-      console.error('Failed to fetch players:', error);
-      throw error;
-    }
+    const response = await axios.get(this.playersEndpoint);
+    return response?.data?.players.map((playerData) => new Player(playerData)) || [];
+  }
+
+  async getAllPlayersNames() {
+    const response = await axios.get(this.playersEndpoint);
+    return response?.data?.players
+      .reduce((acc, currentPlayer) => {
+        return (acc += `${currentPlayer.firstname} ${currentPlayer.lastname}, `);
+      }, '')
+      .slice(0, -2);
   }
 
   async getPlayerById(id) {
-    try {
-      const response = await axios.get(this.playersEndpoint);
-      const player = response.data.players.find((player) => player.id == Number(id));
-      return new Player(player);
-    } catch (error) {
-      console.error(`Failed to fetch player with ID ${id}:`, error);
-      throw error;
-    }
+    const response = await axios.get(this.playersEndpoint);
+    const player = response.data?.players?.find((player) => player.id === id);
+    if (!player) throw Error('Not found');
+    return new Player(player);
   }
 }
 

@@ -2,5 +2,6 @@
 .pnp.loader.mjs
 
 dist/*
+coverage/*
 node_modules/*
 .yarn/*
