@@ -1,9 +1,9 @@
 const isNumber = (input) => !isNaN(input);
 
-const sortArrayByIntegerKey = (array, key, asc = true) => {
+const sortArrayByIntegerKey = (array, key) => {
   return array.sort((a, b) => {
     if (a[key] === b[key]) return 0;
-    if ((asc && a[key] > b[key]) || (!asc && a[key] < b[key])) return 1;
+    if (a[key] > b[key]) return 1;
     else return -1;
   });
 };

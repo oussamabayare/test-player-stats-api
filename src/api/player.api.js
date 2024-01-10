@@ -12,9 +12,22 @@ class PlayerAPI {
   setupRoutes() {
     this.app.get('/players', async (request, reply) => {
       try {
+        console.log(request.query.test);
+        const sortKey = request.query?.sortBy || 'id';
         const players =
-          sortArrayByIntegerKey(await this.playersRepository.getAllPlayers(), 'id') || [];
+          sortArrayByIntegerKey(await this.playersRepository.getAllPlayers(), sortKey) || [];
         reply.header('Content-Type', 'application/json');
+        reply.send(players);
+      } catch (error) {
+        console.error(`Failed to fetch players`, error.message);
+        return [];
+      }
+    });
+
+    this.app.get('/players-names', async (request, reply) => {
+      try {
+        const players = await this.playersRepository.getAllPlayersNames();
+        //reply.header('Content-Type', 'application/json');
         reply.send(players);
       } catch (error) {
         console.error(`Failed to fetch players`, error.message);
